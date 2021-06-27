@@ -1,4 +1,4 @@
-import { Container, UserAvatar } from "../styles/ChatStyle";
+import { Container, UserAvatar } from "../styles/SidebarChatStyle";
 import PropTypes from "prop-types";
 import getRecipientEmail from "../lib/getRecipientEmail";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -6,7 +6,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { auth, db } from "../services/firebase";
 import { useRouter } from "next/dist/client/router";
 
-function Chat({ id, users }) {
+function SidebarChat({ id, users }) {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const [recipientSnapshot] = useCollection(
@@ -31,9 +31,9 @@ function Chat({ id, users }) {
   );
 }
 
-Chat.propTypes = {
+SidebarChat.propTypes = {
   id: PropTypes.string,
   users: PropTypes.array,
 };
 
-export default Chat;
+export default SidebarChat;
