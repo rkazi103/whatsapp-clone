@@ -1,10 +1,10 @@
-import "../styles/globals.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../services/firebase";
 import Login from "./login";
 import Loading from "../components/Loading";
 import { useEffect } from "react";
 import firbease from "firebase";
+import GlobalStyles from "../styles/GlobalStyles";
 
 function MyApp({ Component, pageProps }) {
   const [user, loading] = useAuthState(auth);
@@ -22,10 +22,28 @@ function MyApp({ Component, pageProps }) {
     }
   }, [user]);
 
-  if (loading) return <Loading />;
-  if (!user) return <Login />;
+  if (loading)
+    return (
+      <>
+        <GlobalStyles />
+        <Loading />
+      </>
+    );
 
-  return <Component {...pageProps} />;
+  if (!user)
+    return (
+      <>
+        <GlobalStyles />
+        <Login />
+      </>
+    );
+
+  return (
+    <>
+      <GlobalStyles />
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 export default MyApp;

@@ -7,7 +7,7 @@ import {
 import Head from "next/head";
 import { auth, provider } from "../services/firebase";
 
-const Login = () => {
+function Login() {
   const signIn = () => {
     auth.signInWithPopup(provider).catch(alert);
   };
@@ -29,6 +29,6 @@ const Login = () => {
       </LoginContainer>
     </Container>
   );
-};
+}
 
 export default Login;

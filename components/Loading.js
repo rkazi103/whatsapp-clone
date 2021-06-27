@@ -2,7 +2,7 @@
 import { Logo, LoadingContainer } from "../styles/LoadingStyle";
 import { Circle } from "better-react-spinkit";
 
-const Loading = () => {
+function Loading() {
   return (
     <center
       style={{
@@ -21,6 +21,6 @@ const Loading = () => {
       </LoadingContainer>
     </center>
   );
-};
+}
 
 export default Loading;

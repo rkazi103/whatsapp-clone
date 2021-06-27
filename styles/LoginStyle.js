@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
-import Image from "next/image";
 
 export const Container = styled.div`
   display: grid;
@@ -19,7 +18,7 @@ export const LoginContainer = styled.div`
   box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
 `;
 
-export const Logo = styled(Image)`
+export const Logo = styled.img`
   height: 200px;
   width: 200px;
   margin-bottom: 50px;
