@@ -25,10 +25,12 @@ export default function Chat({ chat, messages }) {
 
 export async function getServerSideProps(context) {
   const ref = db.collection("chats").doc(context.query.id);
+
   const messagesRef = await ref
     .collection("messages")
     .orderBy("timestamp", "asc")
     .get();
+
   const messages = messagesRef.docs
     .map((doc) => ({
       id: doc.id,
