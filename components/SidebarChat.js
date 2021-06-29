@@ -22,7 +22,7 @@ function SidebarChat({ id, users }) {
   return (
     <Container onClick={enterChat}>
       {recipient ? (
-        <UserAvatar src={recipent.photoURL} />
+        <UserAvatar src={recipient?.photoUrl} />
       ) : (
         <UserAvatar>{recipientEmail[0]}</UserAvatar>
       )}

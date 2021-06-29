@@ -15,6 +15,7 @@ export const Container = styled.div`
 
   -ms-overflow-style: none;
   scrollbar-width: none;
+  position: relative;
 `;
 
 export const Header = styled.div`
@@ -57,4 +58,27 @@ export const SidebarButton = styled(Button)`
   width: 100%;
   border-bottom: 1px solid whitesmoke !important;
   border-top: 1px solid whitesmoke !important;
+`;
+
+export const ModalContainer = styled.div`
+  position: absolute;
+  width: 400;
+  background-color: whitesmoke;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  border: 2px solid #000;
+
+  > form > input {
+    padding: 10px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: none;
+    outline: none;
+    flex: 1;
+  }
 `;

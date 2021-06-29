@@ -36,7 +36,9 @@ export const MessageContainer = styled.div`
   min-height: 90vh;
 `;
 
-export const EndOfMessage = styled.div``;
+export const EndOfMessage = styled.div`
+  margin-bottom: 50px;
+`;
 
 export const InputContainer = styled.form`
   display: flex;

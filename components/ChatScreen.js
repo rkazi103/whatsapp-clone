@@ -21,6 +21,9 @@ import MicIcon from "@material-ui/icons/Mic";
 import { useState } from "react";
 import firebase from "firebase";
 import getRecipientEmail from "../lib/getRecipientEmail";
+import Timeago from "timeago-react";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 function ChatScreen({ chat, messages }) {
   const [user] = useAuthState(auth);
@@ -33,6 +36,12 @@ function ChatScreen({ chat, messages }) {
       .orderBy("timestamp", "asc")
   );
   const [input, setInput] = useState("");
+  const [recipientSnapshot] = useCollection(
+    db
+      .collection("users")
+      .where("email", "==", getRecipientEmail(chat.users, user))
+  );
+  const endOfMessagesRef = useRef(null);
 
   const showMessages = () => {
     if (messagesSnapshot) {
@@ -53,6 +62,19 @@ function ChatScreen({ chat, messages }) {
     }
   };
 
+  const scrollToBottom = () => {
+    endOfMessagesRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  useEffect(() => {
+    endOfMessagesRef.current.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, []);
+
   const sendMessage = (e) => {
     e.preventDefault();
 
@@ -71,18 +93,35 @@ function ChatScreen({ chat, messages }) {
     });
 
     setInput("");
+    scrollToBottom();
   };
 
+  const recipient = recipientSnapshot?.docs?.[0]?.data();
   const recipientEmail = getRecipientEmail(chat.users, user);
 
   return (
     <Container>
       <Header>
-        <Avatar />
+        {recipient ? (
+          <Avatar src={recipient?.photoUrl} />
+        ) : (
+          <Avatar>{recipientEmail[0]}</Avatar>
+        )}
 
         <HeaderInformation>
           <h3>{recipientEmail}</h3>
-          <p>Last seen ...</p>
+          {recipientSnapshot ? (
+            <p>
+              Last Active:{" "}
+              {recipient?.lastSeen?.toDate() ? (
+                <Timeago datetime={recipient?.lastSeen?.toDate()} />
+              ) : (
+                "Unavailable"
+              )}
+            </p>
+          ) : (
+            <p>Loading Last active...</p>
+          )}
         </HeaderInformation>
 
         <HeaderIcons>
@@ -96,9 +135,8 @@ function ChatScreen({ chat, messages }) {
       </Header>
 
       <MessageContainer>
-        {/* TODO: Show Messages */}
         {showMessages()}
-        <EndOfMessage />
+        <EndOfMessage ref={endOfMessagesRef} />
       </MessageContainer>
 
       <InputContainer>
